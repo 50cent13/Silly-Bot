@@ -22,20 +22,47 @@ async def on_ready():
 async def ping(ctx):
     """Simple ping command that responds with pong"""
     try:
-        # Write to shared file (create in current directory instead of parent)
+        # Write to shared file for Rust bot to read
         with open("shared.txt", "w") as f:
             f.write("Python bot received a ping command!")
         
-        await ctx.send("Ping received! Message saved to shared.txt")
+        await ctx.send("Ping received! Message saved to shared.txt for Rust bot.")
         print("Ping command executed successfully")
     except Exception as e:
         await ctx.send(f"Error: {str(e)}")
         print(f"Error in ping command: {e}")
 
 @bot.command()
+async def check_rust(ctx):
+    """Check for messages from Rust bot"""
+    try:
+        with open("shared.txt", "r") as f:
+            content = f.read()
+            if "Rust bot received ping" in content:
+                await ctx.send(f"Rust bot says: {content}")
+            else:
+                await ctx.send("No recent messages from Rust bot.")
+    except FileNotFoundError:
+        await ctx.send("No shared file found. Rust bot hasn't sent any messages yet.")
+    except Exception as e:
+        await ctx.send(f"Error reading shared file: {str(e)}")
+
+@bot.command()
 async def hello(ctx):
     """Greet the user"""
     await ctx.send(f"Hello {ctx.author.mention}!")
+
+@bot.command()
+async def dual_status(ctx):
+    """Show the status of both bots"""
+    try:
+        with open("shared.txt", "r") as f:
+            content = f.read()
+            await ctx.send(f"Shared communication file contains: {content}")
+    except FileNotFoundError:
+        await ctx.send("No communication file found yet.")
+    except Exception as e:
+        await ctx.send(f"Error checking status: {str(e)}")
 
 # Error handling
 @bot.event
