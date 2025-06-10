@@ -5,7 +5,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
-token = os.getenv("BOT_TOKEN_PY")
+token = os.getenv("BOT_PY_TOKEN")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -64,7 +64,7 @@ async def hello(ctx):
 
 if __name__ == "__main__":
     if not token:
-        print("Error: BOT_TOKEN_PY not found in environment variables")
-        print("Please set BOT_TOKEN_PY in the Secrets tab")
+        print("Error: BOT_PY_TOKEN not found in environment variables")
+        print("Please set BOT_PY_TOKEN in the Secrets tab")
     else:
         bot.run(token)
