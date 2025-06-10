@@ -4,91 +4,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dual Discord Bot System</title>
+    <title>Silly Bot - Feature-Rich Discord Bot</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
         }
         .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
         }
         h1 {
-            color: #333;
             text-align: center;
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
         }
         .status {
-            background-color: #e8f5e8;
-            padding: 15px;
-            border-radius: 5px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
             margin: 20px 0;
+            text-align: center;
         }
-        .commands {
-            background-color: #f0f8ff;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+        }
+        .feature-section:hover {
+            transform: translateY(-5px);
+        }
+        .music { border-left-color: #e91e63; }
+        .fun { border-left-color: #ff9800; }
+        .economy { border-left-color: #4caf50; }
+        .moderation { border-left-color: #f44336; }
+        .utility { border-left-color: #2196f3; }
+        
+        .feature-section h3 {
+            margin-top: 0;
+            color: #333;
         }
         .command {
-            background-color: #333;
+            background: #333;
             color: white;
             padding: 5px 10px;
-            border-radius: 3px;
-            font-family: monospace;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
             margin: 5px 0;
             display: inline-block;
+            font-size: 0.9em;
         }
-        .bot-section {
-            margin: 20px 0;
-            padding: 15px;
-            border-left: 4px solid #007bff;
-            background-color: #f8f9fa;
+        .feature-description {
+            color: #666;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .highlight {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🤖 Dual Discord Bot System</h1>
+        <h1>🤖 Silly Bot</h1>
+        <p class="subtitle">Your Feature-Rich Discord Companion</p>
         
         <div class="status">
-            <h3>🟢 System Status: Active</h3>
-            <p>Both Python and Rust Discord bots are running and communicating through shared files.</p>
+            <h3>🟢 Bot Status: Online & Ready!</h3>
+            <p>All systems operational - Music, Economy, Moderation & More!</p>
         </div>
 
-        <div class="bot-section">
-            <h3>🐍 Python Bot Commands</h3>
-            <div class="commands">
-                <div class="command">!ping</div> - Python bot responds and writes to shared.txt<br>
-                <div class="command">!check_rust</div> - Python bot reads messages from Rust bot<br>
-                <div class="command">!dual_status</div> - Shows current shared communication status<br>
-                <div class="command">!hello</div> - Simple greeting
+        <div class="feature-grid">
+            <div class="feature-section music">
+                <h3>🎵 Music Commands</h3>
+                <div class="feature-description">
+                    Bring life to your server with music functionality!
+                </div>
+                <div class="command">!play &lt;song&gt;</div> - Play music<br>
+                <div class="command">!queue</div> - Show music queue<br>
+                <div class="command">!skip</div> - Skip current song<br>
+                <div class="command">!stop</div> - Stop music playback
+            </div>
+
+            <div class="feature-section fun">
+                <h3>🎮 Fun & Entertainment</h3>
+                <div class="feature-description">
+                    Keep your community entertained with games and jokes!
+                </div>
+                <div class="command">!meme</div> - Random memes<br>
+                <div class="command">!joke</div> - Funny jokes<br>
+                <div class="command">!8ball &lt;question&gt;</div> - Magic 8-ball<br>
+                <div class="command">!roll</div> - Roll dice
+            </div>
+
+            <div class="feature-section economy">
+                <h3>💰 Economy System</h3>
+                <div class="feature-description">
+                    Complete economy with daily rewards, work, and gambling!
+                </div>
+                <div class="command">!balance</div> - Check coins<br>
+                <div class="command">!daily</div> - Daily reward<br>
+                <div class="command">!work</div> - Work for coins<br>
+                <div class="command">!gamble &lt;amount&gt;</div> - Risk it all!
+            </div>
+
+            <div class="feature-section moderation">
+                <h3>🛡️ Moderation Tools</h3>
+                <div class="feature-description">
+                    Keep your server safe with powerful moderation features!
+                </div>
+                <div class="command">!kick &lt;user&gt;</div> - Kick members<br>
+                <div class="command">!ban &lt;user&gt;</div> - Ban members<br>
+                <div class="command">!warn &lt;user&gt;</div> - Warn users<br>
+                <div class="command">!clear &lt;amount&gt;</div> - Clear messages
+            </div>
+
+            <div class="feature-section utility">
+                <h3>ℹ️ Utility Commands</h3>
+                <div class="feature-description">
+                    Helpful tools and information commands!
+                </div>
+                <div class="command">!ping</div> - Check bot latency<br>
+                <div class="command">!userinfo</div> - User information<br>
+                <div class="command">!serverinfo</div> - Server statistics<br>
+                <div class="command">!help</div> - Show all commands
             </div>
         </div>
 
-        <div class="bot-section">
-            <h3>🦀 Rust Bot Commands</h3>
-            <div class="commands">
-                <div class="command">!rust_ping</div> - Rust bot responds and writes to shared.txt<br>
-                <div class="command">!check_python</div> - Rust bot reads messages from Python bot
-            </div>
-        </div>
-
-        <div class="status">
-            <h3>📋 How It Works</h3>
-            <p>1. Both bots connect to Discord using their respective tokens</p>
-            <p>2. When a bot receives a command, it can write messages to shared.txt</p>
-            <p>3. The other bot can read from this file when requested</p>
-            <p>4. This allows asynchronous communication between the Python and Rust bots</p>
+        <div class="highlight">
+            <h3>🚀 Getting Started</h3>
+            <p>Use <strong>!help</strong> to see all available commands</p>
+            <p>Prefixes: <code>!</code> <code>?</code> <code>.</code></p>
         </div>
 
         <div style="text-align: center; margin-top: 30px; color: #666;">
-            <p>Invite the bots to your Discord server and try the commands!</p>
+            <p>Invite the bot to your Discord server and start having fun!</p>
+            <p><em>Made with ❤️ for the Discord community</em></p>
         </div>
     </div>
 </body>
