@@ -5,7 +5,7 @@ import time
 import os
 
 def run_python_bot():
-    """Run the Python Discord bot"""
+    """Run the Python bot"""
     print("Starting Python bot...")
     try:
         subprocess.run(["python3", "main.py"], check=True)
@@ -15,10 +15,9 @@ def run_python_bot():
         print("Python bot stopped by user")
 
 def run_rust_bot():
-    """Run the Rust Discord bot"""
+    """Run the Rust bot"""
     print("Starting Rust bot...")
     try:
-        # Build and run the Rust bot
         subprocess.run(["cargo", "run"], cwd=".", check=True)
     except subprocess.CalledProcessError as e:
         print(f"Rust bot error: {e}")
@@ -26,16 +25,11 @@ def run_rust_bot():
         print("Rust bot stopped by user")
 
 def main():
-    print("Starting dual Discord bot system...")
+    print("Starting dual bot system...")
     
-    # Check if tokens are set
-    if not os.getenv("BOT_TOKEN_PY"):
-        print("Error: BOT_TOKEN_PY not found in environment!")
-        return
-    
-    if not os.getenv("BOT_TOKEN_RS"):
-        print("Error: BOT_TOKEN_RS not found in environment!")
-        return
+    # Create shared file
+    with open("shared.txt", "w") as f:
+        f.write("")
     
     # Create threads for both bots
     python_thread = threading.Thread(target=run_python_bot, daemon=True)
