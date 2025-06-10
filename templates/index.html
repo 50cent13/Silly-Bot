@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual Discord Bot System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .status {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .commands {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .command {
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            margin: 5px 0;
+            display: inline-block;
+        }
+        .bot-section {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Dual Discord Bot System</h1>
+        
+        <div class="status">
+            <h3>🟢 System Status: Active</h3>
+            <p>Both Python and Rust Discord bots are running and communicating through shared files.</p>
+        </div>
+
+        <div class="bot-section">
+            <h3>🐍 Python Bot Commands</h3>
+            <div class="commands">
+                <div class="command">!ping</div> - Python bot responds and writes to shared.txt<br>
+                <div class="command">!check_rust</div> - Python bot reads messages from Rust bot<br>
+                <div class="command">!dual_status</div> - Shows current shared communication status<br>
+                <div class="command">!hello</div> - Simple greeting
+            </div>
+        </div>
+
+        <div class="bot-section">
+            <h3>🦀 Rust Bot Commands</h3>
+            <div class="commands">
+                <div class="command">!rust_ping</div> - Rust bot responds and writes to shared.txt<br>
+                <div class="command">!check_python</div> - Rust bot reads messages from Python bot
+            </div>
+        </div>
+
+        <div class="status">
+            <h3>📋 How It Works</h3>
+            <p>1. Both bots connect to Discord using their respective tokens</p>
+            <p>2. When a bot receives a command, it can write messages to shared.txt</p>
+            <p>3. The other bot can read from this file when requested</p>
+            <p>4. This allows asynchronous communication between the Python and Rust bots</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; color: #666;">
+            <p>Invite the bots to your Discord server and try the commands!</p>
+        </div>
+    </div>
+</body>
+</html>

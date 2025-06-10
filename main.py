@@ -3,7 +3,7 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, render_template
 import threading
 
 load_dotenv()
@@ -13,8 +13,28 @@ token = os.getenv("BOT_PY_TOKEN")
 app = Flask(__name__)
 
 @app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/health')
 def health_check():
     return 'Bot is running!', 200
+
+@app.route('/status')
+def status():
+    try:
+        with open("shared.txt", "r") as f:
+            content = f.read().strip()
+        
+        return {
+            "status": "active",
+            "shared_file_content": content if content else "empty"
+        }
+    except FileNotFoundError:
+        return {
+            "status": "active",
+            "shared_file_content": "file_not_found"
+        }
 
 intents = discord.Intents.default()
 intents.message_content = True
