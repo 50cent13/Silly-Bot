@@ -18,9 +18,14 @@ def run_rust_bot():
     """Run the Rust Discord bot"""
     print("Starting Rust Discord bot...")
     try:
-        subprocess.run(["cargo", "run"], cwd=".", check=True)
+        # Set up Rust environment
+        env = os.environ.copy()
+        env["PATH"] = f"{os.path.expanduser('~/.cargo/bin')}:{env.get('PATH', '')}"
+        subprocess.run(["cargo", "run"], cwd=".", check=True, env=env)
     except subprocess.CalledProcessError as e:
         print(f"Rust bot error: {e}")
+    except FileNotFoundError:
+        print("Cargo not found. Please install Rust first.")
     except KeyboardInterrupt:
         print("Rust bot stopped by user")
 
