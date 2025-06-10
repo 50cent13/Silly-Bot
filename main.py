@@ -7,7 +7,7 @@ from flask import Flask, render_template
 import threading
 
 load_dotenv()
-token = os.getenv("BOT_PY_TOKEN")
+token = os.getenv("BOT_TOKEN_PY")
 
 # Flask app for health checks
 app = Flask(__name__)
@@ -93,8 +93,8 @@ async def hello(ctx):
 
 if __name__ == "__main__":
     if not token:
-        print("Error: BOT_PY_TOKEN not found in environment variables")
-        print("Please set BOT_PY_TOKEN in the Secrets tab")
+        print("Error: BOT_TOKEN_PY not found in environment variables")
+        print("Please set BOT_TOKEN_PY in the Secrets tab")
         exit(1)
     
     # Start Flask server in a separate thread
