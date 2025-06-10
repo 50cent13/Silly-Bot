@@ -1,46 +1,70 @@
+
 import os
-import time
-import threading
+import discord
+from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
+token = os.getenv("BOT_TOKEN_PY")
 
-def python_bot():
-    """Simple Python bot that writes to shared file"""
-    print("Python bot started. Sending periodic messages...")
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix="!", intents=intents)
 
-    counter = 1
-    while True:
-        try:
-            message = f"Python bot message #{counter} at {time.strftime('%H:%M:%S')}"
+@bot.event
+async def on_ready():
+    print(f"Python bot logged in as {bot.user}")
 
-            # Write to shared file
-            with open("shared.txt", "w") as f:
-                f.write(message)
+@bot.command()
+async def ping(ctx):
+    """Python bot responds and writes to shared.txt"""
+    message = f"Python bot received ping from {ctx.author} at {ctx.message.created_at}"
+    
+    with open("shared.txt", "w") as f:
+        f.write(message)
+    
+    await ctx.send("Ping received! Message passed to Rust bot via shared.txt")
+    print(f"Python bot: {message}")
 
-            print(f"Python bot sent: {message}")
-            counter += 1
+@bot.command()
+async def check_rust(ctx):
+    """Python bot reads messages from Rust bot"""
+    try:
+        with open("shared.txt", "r") as f:
+            content = f.read().strip()
+        
+        if content:
+            if content.startswith("Rust bot"):
+                await ctx.send(f"Message from Rust bot: {content}")
+            else:
+                await ctx.send("No Rust bot messages found in shared file")
+        else:
+            await ctx.send("Shared file is empty")
+    except FileNotFoundError:
+        await ctx.send("Shared file not found")
 
-            # Wait a bit, then check for Rust response
-            time.sleep(3)
+@bot.command()
+async def dual_status(ctx):
+    """Shows current shared communication status"""
+    try:
+        with open("shared.txt", "r") as f:
+            content = f.read().strip()
+        
+        if content:
+            await ctx.send(f"Shared communication status: Active\nCurrent message: {content}")
+        else:
+            await ctx.send("Shared communication status: Empty")
+    except FileNotFoundError:
+        await ctx.send("Shared communication status: File not found")
 
-            # Read Rust response
-            try:
-                with open("shared.txt", "r") as f:
-                    response = f.read()
-                    if response.startswith("Rust bot processed:"):
-                        print(f"Python bot received: {response}")
-                        # Clear the file for next cycle
-                        with open("shared.txt", "w") as f:
-                            f.write("")
-            except FileNotFoundError:
-                pass
-
-            time.sleep(5)  # Wait before next message
-
-        except Exception as e:
-            print(f"Python bot error: {e}")
-            time.sleep(5)
+@bot.command()
+async def hello(ctx):
+    """Simple greeting"""
+    await ctx.send(f"Hello {ctx.author.mention}! I'm the Python bot in the dual bot system.")
 
 if __name__ == "__main__":
-    python_bot()
+    if not token:
+        print("Error: BOT_TOKEN_PY not found in environment variables")
+        print("Please set BOT_TOKEN_PY in the Secrets tab")
+    else:
+        bot.run(token)
