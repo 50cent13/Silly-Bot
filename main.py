@@ -3,9 +3,18 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+from flask import Flask
+import threading
 
 load_dotenv()
 token = os.getenv("BOT_PY_TOKEN")
+
+# Flask app for health checks
+app = Flask(__name__)
+
+@app.route('/')
+def health_check():
+    return 'Bot is running!', 200
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -66,5 +75,11 @@ if __name__ == "__main__":
     if not token:
         print("Error: BOT_PY_TOKEN not found in environment variables")
         print("Please set BOT_PY_TOKEN in the Secrets tab")
-    else:
-        bot.run(token)
+        exit(1)
+    
+    # Start Flask server in a separate thread
+    flask_thread = threading.Thread(target=lambda: app.run(host='0.0.0.0', port=8080))
+    flask_thread.daemon = True
+    flask_thread.start()
+    
+    bot.run(token)
