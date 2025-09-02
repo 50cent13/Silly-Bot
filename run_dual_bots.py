@@ -18,7 +18,7 @@ def run_rust_bot():
     """Run the Rust Discord bot"""
     print("Starting Rust Discord bot...")
     try:
-        # Set up Rust environment
+        
         env = os.environ.copy()
         env["PATH"] = f"{os.path.expanduser('~/.cargo/bin')}:{env.get('PATH', '')}"
         subprocess.run(["cargo", "run"], cwd=".", check=True, env=env)
@@ -33,18 +33,18 @@ def main():
     print("Starting dual Discord bot system...")
     print("Make sure you have set BOT_TOKEN_PY and BOT_TOKEN_RS in Secrets!")
     
-    # Create shared file if it doesn't exist
+    
     if not os.path.exists("shared.txt"):
         with open("shared.txt", "w") as f:
             f.write("")
     
-    # Create threads for both bots
+    
     python_thread = threading.Thread(target=run_python_bot, daemon=True)
     rust_thread = threading.Thread(target=run_rust_bot, daemon=True)
     
-    # Start both bots
+    
     python_thread.start()
-    time.sleep(3)  # Give Python bot a moment to start
+    time.sleep(3)  
     rust_thread.start()
     
     try:
@@ -54,7 +54,7 @@ def main():
         print("Rust bot: !rust_ping, !check_python")
         print("\nPress Ctrl+C to stop both bots")
         
-        # Keep main thread alive
+        
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
