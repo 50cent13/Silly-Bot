@@ -10,7 +10,6 @@ import aiohttp
 from flask import Flask, render_template
 import threading
 
-# Flask app for health checks
 app = Flask(__name__)
 
 @app.route('/')
@@ -21,11 +20,9 @@ def home():
 def health_check():
     return 'Bot is running!', 200
 
-# Bot setup
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix=['!', '?', '.'], intents=intents, help_command=None)
 
-# Global variables
 user_data = {}
 warnings = {}
 
@@ -47,7 +44,6 @@ async def on_ready():
     global user_data
     user_data = load_user_data()
 
-# Help command
 @bot.command(name='help')
 async def help_command(ctx):
     embed = discord.Embed(
@@ -88,7 +84,6 @@ async def help_command(ctx):
     
     await ctx.send(embed=embed)
 
-# Music Commands (Basic implementation)
 music_queue = []
 current_song = None
 
@@ -137,7 +132,6 @@ async def stop(ctx):
     music_queue.clear()
     await ctx.send("⏹️ Music stopped and queue cleared!")
 
-# Fun Commands
 @bot.command()
 async def meme(ctx):
     memes = [
@@ -197,7 +191,6 @@ async def roll(ctx, sides=6):
     )
     await ctx.send(embed=embed)
 
-# Economy Commands
 def get_user_balance(user_id):
     if str(user_id) not in user_data:
         user_data[str(user_id)] = {
@@ -320,7 +313,7 @@ async def gamble(ctx, amount=None):
         await ctx.send("You don't have enough coins!")
         return
     
-    if random.random() < 0.45:  # 45% chance to win
+    if random.random() < 0.45:  
         winnings = amount * 2
         set_user_balance(ctx.author.id, current_balance + amount)
         embed = discord.Embed(
@@ -338,7 +331,6 @@ async def gamble(ctx, amount=None):
     
     await ctx.send(embed=embed)
 
-# Moderation Commands
 @bot.command()
 @commands.has_permissions(kick_members=True)
 async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
@@ -399,7 +391,6 @@ async def clear(ctx, amount: int = 5):
     await asyncio.sleep(3)
     await msg.delete()
 
-# Utility Commands
 @bot.command()
 async def ping(ctx):
     latency = round(bot.latency * 1000)
@@ -446,7 +437,6 @@ async def serverinfo(ctx):
     
     await ctx.send(embed=embed)
 
-# Error handling
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
@@ -463,7 +453,6 @@ if __name__ == "__main__":
         print("Please set BOT_TOKEN_PY in the Secrets tab")
         exit(1)
     
-    # Start Flask server in a separate thread
     flask_thread = threading.Thread(target=lambda: app.run(host='0.0.0.0', port=8080))
     flask_thread.daemon = True
     flask_thread.start()
